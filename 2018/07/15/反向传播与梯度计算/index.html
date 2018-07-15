@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="NLP," />
 
 
 
@@ -79,13 +79,25 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="小尚是个好青年">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="矩阵计算基础 标量对向量的导数：标量对向量的每一维求导，结果是一个向量 向量对向量的导数：向量的每一维对向量的每一维求导，结果是一个矩阵 标量对矩阵的导数：标量对矩阵的每一个元素求导，结果是一个矩阵【结论】求导结果总是和求导对象大小相同  常见的导数运算： 激活函数定义 $h$ 是 $z$ 的函数 $h=f(z)$, $h$ 和$z$ 都是n维向量。求 \frac{\partial h}{\par">
+<meta name="keywords" content="NLP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="反向传播与梯度计算">
+<meta property="og:url" content="http://yoursite.com/2018/07/15/反向传播与梯度计算/index.html">
 <meta property="og:site_name" content="小尚是个好青年">
+<meta property="og:description" content="矩阵计算基础 标量对向量的导数：标量对向量的每一维求导，结果是一个向量 向量对向量的导数：向量的每一维对向量的每一维求导，结果是一个矩阵 标量对矩阵的导数：标量对矩阵的每一个元素求导，结果是一个矩阵【结论】求导结果总是和求导对象大小相同  常见的导数运算： 激活函数定义 $h$ 是 $z$ 的函数 $h=f(z)$, $h$ 和$z$ 都是n维向量。求 \frac{\partial h}{\par">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2018/07/15/反向传播与梯度计算/images/markdown-img-paste-20180714141016139.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/15/反向传播与梯度计算/images/markdown-img-paste-20180714141048437.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/15/反向传播与梯度计算/images/markdown-img-paste-20180714141754511.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/15/反向传播与梯度计算/images/markdown-img-paste-20180714142606302.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/15/反向传播与梯度计算/images/markdown-img-paste-2018071414362761.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/15/反向传播与梯度计算/images/markdown-img-paste-20180714143755133.png">
+<meta property="og:updated_time" content="2018-07-15T01:53:09.912Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="小尚是个好青年">
+<meta name="twitter:title" content="反向传播与梯度计算">
+<meta name="twitter:description" content="矩阵计算基础 标量对向量的导数：标量对向量的每一维求导，结果是一个向量 向量对向量的导数：向量的每一维对向量的每一维求导，结果是一个矩阵 标量对矩阵的导数：标量对矩阵的每一个元素求导，结果是一个矩阵【结论】求导结果总是和求导对象大小相同  常见的导数运算： 激活函数定义 $h$ 是 $z$ 的函数 $h=f(z)$, $h$ 和$z$ 都是n维向量。求 \frac{\partial h}{\par">
+<meta name="twitter:image" content="http://yoursite.com/2018/07/15/反向传播与梯度计算/images/markdown-img-paste-20180714141016139.png">
 
 
 
@@ -115,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/15/反向传播与梯度计算/"/>
 
 
 
 
 
-  <title>小尚是个好青年</title>
+  <title>反向传播与梯度计算 | 小尚是个好青年</title>
   
 
 
@@ -140,8 +152,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,9 +225,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -246,9 +257,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/15/反向传播与梯度计算/" itemprop="url">反向传播与梯度计算</a></h1>
+          <h1 class="post-title" itemprop="name headline">反向传播与梯度计算</h1>
         
 
         <div class="post-meta">
@@ -320,9 +329,7 @@
       
 
       
-        
-          
-            <h2 id="矩阵计算基础"><a href="#矩阵计算基础" class="headerlink" title="矩阵计算基础"></a>矩阵计算基础</h2><ol>
+        <h2 id="矩阵计算基础"><a href="#矩阵计算基础" class="headerlink" title="矩阵计算基础"></a>矩阵计算基础</h2><ol>
 <li>标量对向量的导数：标量对向量的每一维求导，结果是一个向量</li>
 <li>向量对向量的导数：向量的每一维对向量的每一维求导，结果是一个矩阵</li>
 <li>标量对矩阵的导数：标量对矩阵的每一个元素求导，结果是一个矩阵<br><img src="images/markdown-img-paste-20180714141016139.png" alt=""><br>【结论】求导结果总是和求导对象大小相同</li>
@@ -343,8 +350,6 @@
 </li>
 </ol>
 
-          
-        
       
     </div>
     
@@ -359,175 +364,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/14/RNN系列/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小尚是个好青年">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/14/RNN系列/" itemprop="url">RNN系列</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-14T00:00:00+08:00">
-                2018-07-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/公开课/" itemprop="url" rel="index">
-                    <span itemprop="name">公开课</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="基于固定窗口的NN语音模型和RNN语言模型"><a href="#基于固定窗口的NN语音模型和RNN语言模型" class="headerlink" title="基于固定窗口的NN语音模型和RNN语言模型"></a>基于固定窗口的NN语音模型和RNN语言模型</h2><p>Bengio等人利用神经网络来表示语言模型，在语言模型的训练过程中可以得到单词的分布式表示，具体的神经概率语言模型图如下：</p>
-<p><img src="images/markdown-img-paste-20180714145552618.png" alt=""><br>该网络的主要思想是用前$n−1$个词的向量来估计当前词的概率，具体公式为：</p>
-<script type="math/tex; mode=display">\hat{y} =softmax(W_2*tanh(W_1+b_1)+W_3+b_3)</script><p>可以看出传统语言模型在估计概率的时候需要固定$n$的大小，否则无法统计概率$P(w_i|w_{i−(n−1)},…,w_{i−1})$。 而 RNN 的最大优势在于可以统计 $P(w_i|w_1,…,w_{i−1})$ 的概率。<br><img src="images/markdown-img-paste-20180714145356908.png" alt=""></p>
-<p>RNN语言模型中非常关键的一点是每个时刻采用的 $W$ 矩阵都是一个，所以参数规模不会随着依赖上下文的长度增加而指数增长。</p>
-<h2 id="RNN-中的BP"><a href="#RNN-中的BP" class="headerlink" title="RNN 中的BP"></a>RNN 中的BP</h2><p><font color="teal">多变量链式法则</font><br><br>如果对于函数 $f(x, y)$, 每个变量都是 $t$ 的函数，即 $x(t)$, $y(t)$, 那么</p>
-<script type="math/tex; mode=display">\frac{d}{dt}f(x(t), y(t))=\frac{\partial f}{\partial x}\frac{\partial x}{\partial t} + \frac{\partial f}{\partial y}\frac{\partial y}{\partial t}</script><p>对于 RNN 来说，$W_h$ 出现在每一个时刻，所以在计算时应该对每一次的梯度求和。</p>
-<p><img src="images/markdown-img-paste-20180714152550317.png" alt=""></p>
-<p>如果只考虑最后两个时刻$t$和$t-1$，那么：</p>
-<script type="math/tex; mode=display">\frac{\partial J^{(t)}}{\partial W_h}=\sum^t _{i=t-1}|_{(i)}=\frac{\partial J^{(t)}}{\partial\theta^{(t)}}\frac{\partial \theta^{(t)}}{\partial h^{(t)}}(\frac{\partial h^{(t)}}{\partial z^{(t)}}\frac{\partial z^{(t)}}{\partial W_h}+\frac{\partial h^{(t)}}{\partial h^{(t-1)}}\frac{\partial h^{(t-1)}}{\partial z^{(t-1)}}\frac{\partial z^{(t-1)}}{\partial W_h})</script><p>记 $\gamma^{(t)}=\frac{\partial J^{(t)}}{\partial h^{(t)}}$，考虑到梯度可以按时间展开，那么有 $\gamma^{(t-1)}=\frac{\partial J^{(t)}}{\partial h^{(t-1)}}$，所以上述式子可以简写为</p>
-<script type="math/tex; mode=display">\frac{\partial J^{(t)}}{\partial W_h}=\sum^t _{i=t-1}|_{(i)}=\gamma^{(t)} \frac{\partial h^{(t)}}{\partial z^{(t)}}\frac{\partial z^{(t)}}{\partial W_h} + \gamma^{(t-1)} \frac{\partial h^{(t-1)}}{\partial z^{(t-1)}}\frac{\partial z^{(t-1)}}{\partial W_h}</script><p>而由 $\frac{\partial h^{(t)}}{\partial h^{(t-1)}}$ 可以看出，这一项会带来梯度弥散或者梯度爆炸<br>上面的公式是为了详细说明下面的图：<br><img src="images/markdown-img-paste-2018071416061721.png" alt=""></p>
-<h2 id="梯度问题解决办法"><a href="#梯度问题解决办法" class="headerlink" title="梯度问题解决办法"></a>梯度问题解决办法</h2><ol>
-<li>梯度爆炸：当梯度超过一个阈值的时候，将梯度裁剪到一个合适的值</li>
-<li>梯度弥散：使用 GRU 或者 LSTM</li>
-</ol>
-<blockquote>
-<p><font color="red">Q: </font>使用 $l2$ 正则会有助于改善梯度弥散吗？<font color="red">A: </font> 不会，$l2$ 会让权重变为0，使情况更糟。<br></p>
-<p><font color="red">Q: </font>对于一个拥有2个隐层的NN来说，增加隐层个数会有助于改善梯度弥散吗？<br><font color="red">A: </font> 不会，梯度弥散就是因为层数太多引起的。<br></p>
-</blockquote>
-<h3 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h3><p><img src="images/markdown-img-paste-20180714161114943.png" alt=""></p>
-<p>通过更改 RNN 单元结构，使得 从 $c_t$ 到 $c_{t-1}$ 的反向传播与 $W$ 无关</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/14/RNN系列/" rel="next" title="RNN系列">
+                <i class="fa fa-chevron-left"></i> RNN系列
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
       
     </footer>
   </div>
@@ -537,10 +403,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -548,6 +415,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -568,8 +439,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -629,6 +509,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵计算基础"><span class="nav-number">1.</span> <span class="nav-text">矩阵计算基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的导数运算："><span class="nav-number">2.</span> <span class="nav-text">常见的导数运算：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#激活函数"><span class="nav-number">3.</span> <span class="nav-text">激活函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反向传播"><span class="nav-number">4.</span> <span class="nav-text">反向传播</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -762,6 +658,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
