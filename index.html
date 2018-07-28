@@ -664,13 +664,13 @@
       
         
           
-            <h1 id="高级词向量的表示"><a href="#高级词向量的表示" class="headerlink" title="高级词向量的表示"></a>高级词向量的表示</h1><p>这节课从传统的、基于计数的全局方法出发，过渡到高级的Glove，并介绍了词向量的调参与评测方法<br>词幂律分布，log之后是线性的</p>
+            <p>这节课从传统的、基于计数的全局方法出发，过渡到高级的Glove，并介绍了词向量的调参与评测方法<br>词幂律分布，log之后是线性的</p>
 <h2 id="复习：word2vec（skip-gram）"><a href="#复习：word2vec（skip-gram）" class="headerlink" title="复习：word2vec（skip-gram）"></a>复习：word2vec（skip-gram）</h2><ul>
 <li>遍历整个语料库中的每个词</li>
 <li>预测每个词的上下文</li>
-<li>然后在每个窗口（最多有2m+1个词）中做SGD，<h3 id="word2vec-的-Q"><a href="#word2vec-的-Q" class="headerlink" title="word2vec 的 Q"></a>word2vec 的 Q</h3></li>
+<li>然后在每个窗口（最多有2m+1个词）中做SGD，</li>
 </ul>
-<ol>
+<h3 id="word2vec-的-Q"><a href="#word2vec-的-Q" class="headerlink" title="word2vec 的 Q"></a>word2vec 的 Q</h3><ol>
 <li>整个矩阵都需要更新吗？</li>
 <li>所有词表中的词都需要进行计算吗？</li>
 <li>只能在局部上下文窗口训练模型吗？</li>
