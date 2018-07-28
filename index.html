@@ -571,6 +571,197 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/28/NER/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/WX20180525-190534@2x.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小尚是个好青年">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/28/NER/" itemprop="url">NER</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-28T00:00:00+08:00">
+                2018-05-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/公开课/" itemprop="url" rel="index">
+                    <span itemprop="name">公开课</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这节课介绍了根据上下文预测单词分类的问题，与常见神经网络课程套路不同，以间隔最大化为目标函数，推导了对权值矩阵和词向量的梯度；初步展示了与传统机器学习方法不一样的风格。</p>
+<h1 id="前期知识准备"><a href="#前期知识准备" class="headerlink" title=" 前期知识准备 "></a><font color="#0099ff" face="黑体"> 前期知识准备 </font></h1><h2 id="softmax-复习"><a href="#softmax-复习" class="headerlink" title="softmax 复习"></a>softmax 复习</h2><p><img src="/images/markdown-img-paste-20180705100027923.png" alt=""></p>
+<h2 id="softmax与交叉熵"><a href="#softmax与交叉熵" class="headerlink" title="softmax与交叉熵"></a>softmax与交叉熵</h2><p>用 softmax 分类时，常用交叉熵作为损失函数(目标函数)。<br>训练的时候，可以直接最小化正确类别的概率的负对数：<br><img src="/images/markdown-img-paste-20180704095651723.png" alt=""></p>
+<p>其实这个损失函数等效于交叉熵<br><img src="/images/markdown-img-paste-20180704095625203.png" alt=""><br>这是因为类别是one-hot向量。</p>
+<p><strong> 下面补充说明熵、KL散度、损失函数的一些问题 </strong></p>
+<ol>
+<li><p><a href="https://www.cnblogs.com/silent-stranger/p/7987708.html" target="_blank" rel="noopener">如何衡量真实概率和预测概率之间的差异</a></p>
+</li>
+<li><p>熵：可以表示一个事件A的自信息量，也就是A包含多少信息</p>
+<script type="math/tex; mode=display">S(A)=-\sum_i P_A(x_i) log P_A(x_i)</script></li>
+<li><p>KL散度：可以用来表示从事件A的角度出发，事件B有多大不同</p>
+</li>
+</ol>
+<script type="math/tex; mode=display">D_{KL}(A||B) = \sum_i P_A log(\frac {P_A(x_i)}{P_B(x_i)})
+= \sum_i P_A(x_i) log(P_A(x_i))-\sum_i P_A(x_i) log(P_B(x_i))</script><ol>
+<li>交叉熵：可以用来表示从事件A的角度出发，如何描述事件B</li>
+</ol>
+<script type="math/tex; mode=display">H(A, B)=- \sum_i P(x_i)log(P_B(x_i))</script><script type="math/tex; mode=display">D_{KL}(A||B) = -S(A + H(A, B)</script><p>KL散度可以被用于计算代价，而在特定的情况下，min(KL) &lt;=&gt; min(cross_entropy). 而交叉熵的运算更简单，所以用交叉熵来做代价函数</p>
+<p>模型学到的分布 $P(model)$</p>
+<p>训练数据的分布 $P(train)$</p>
+<p>真实数据的分布 $P(real)$</p>
+<ol>
+<li><p>为什么交叉熵可以作为代价？</p>
+<p>$P(model)$  ~ $P(train)$ =&gt; $KL(P(train)||P(model))$</p>
+<p>此处 $P(train)$ 就是事件A， $P(model)$ 就是事件B</p>
+</li>
+</ol>
+<p>恰好，训练数据的分布是给定的、已知的，所以求 $D_{KL}(A||B)$ &lt;=&gt; 求 $H(A, B)$</p>
+<h1 id="Window-Based-NER"><a href="#Window-Based-NER" class="headerlink" title=" Window Based NER "></a><font color="#0099ff" face="黑体"> Window Based NER </font></h1><p>这是一种根据上下文给单个单词分类的任务，可以用于消歧或命名实体分类。</p>
+<ul>
+<li><p>“Spokesperson for Levis, Bill Murray, said . . . ”<br>where it is ambiguous whether Levis is a person or an organization.</p>
+</li>
+<li><p>“Heartbreak is a new virus,” where “Heartbreak” could either be a MISC named entity<br>(it’s actually the name of a virus), or simply a noun.</p>
+</li>
+</ul>
+<p>Basically, we are looking for any situation wherein the sentence contains a word</p>
+<h2 id="softmax-classifier-amp-cross-entropy-loss"><a href="#softmax-classifier-amp-cross-entropy-loss" class="headerlink" title="softmax classifier &amp; cross_entropy loss"></a>softmax classifier &amp; cross_entropy loss</h2><p>训练了一个softmax 分类器，其中 <b>x</b> 是一个窗口中中心词+上下文的向量拼接，<b>y</b> 是中心词的类别，仍然使用 交叉验证熵 作为我们的损失函数<br><img src="/images/markdown-img-paste-20180705100658935.png" alt=""></p>
+<p>这里 $C$ 指的是多类别的类别数，$W$ 是一个 $C\times d$ 的矩阵，$d$ 指的是向量 $X_{window}$ 的维度，注意这里 $X_{window}$ 是把 5 个单词的词向量 contact 了起来，如图所示<br>是一个 $(5\times 4)\times 1=20\times 1$ 的向量。$W_y$ 指的是 $W$ 第 $y$ 行的向量，$J(\theta)$ 中的参数 $\theta$ 便<br>是 $W$ 中的各个元素。我们的目标便是最小化这个损失函数。</p>
+<p>但是一个广义线性的模型，不管是思想上还是模型本身都比较简单，因此我们希望找到更加复杂的模型来学习词语之间的关系，甚至学习语义，由此我们便想到了神经网络。</p>
+<h2 id="Neural-Network-amp-max-margin-loss"><a href="#Neural-Network-amp-max-margin-loss" class="headerlink" title="Neural Network &amp; max-margin loss"></a>Neural Network &amp; max-margin loss</h2><h3 id="NN"><a href="#NN" class="headerlink" title="NN"></a>NN</h3><p>相比于softmax的线性决策，NN的非线性拟合会学习词和词之间的interaction。</p>
+<p>仍以 museums in Paris are amazing 为例,在此之前，当 $in$ 出现时，它的下一个词大概率会是一个地名，但是现在，我们可以通过 NN 学习到  things and patterns ，就是说，如果 $in$ 出现在窗口第二词的位置上，当且仅当第一个词是 $museum$ 时， $in$ 后面的词是地名的概率才会增大。</p>
+<p>一个简单的网络：<br><img src="/images/markdown-img-paste-20180705101413265.png" alt=""><br>这种红点图经常在论文里看到，大致代表单元数；中间的空格分隔开一组神经元，比如隐藏层单元数为2×4。<br><br><b>U</b> 是隐藏层到class的权值矩阵<br><br><b>$\alpha$ </b>是激活函数</p>
+<h3 id="max-margin"><a href="#max-margin" class="headerlink" title="max-margin"></a>max-margin</h3><p>怎么设计目标函数呢，记$s_c$代表误分类样本的得分，$s$表示正确分类样本的得分。则朴素的思路是最大化$(s−s_c)$ 或最小化 $(s_c−s)$。但有种方法只计算$ s_c&gt;s⇒(s_c−s)&gt;0$ 时的错误，也就是说我们只要求正确分类的得分高于错误分类的得分即可，并不要求错误分类的得分多么多么小。这得到间隔最大化目标函数:</p>
+<script type="math/tex; mode=display">min(J)=max(s_c-s,0)</script><p>但上述目标函数要求太低，风险太大了，没有留出足够的“缓冲区域”。可以指定该间隔的宽度 $s−s_c&lt; \delta$ ，得到：</p>
+<script type="math/tex; mode=display">min(J)=max(s_c-s + \delta,0)</script><p>可以令 $\delta = 1$</p>
+<p>在这个分类问题中，这两个得分的计算方式为：$s_c=U^Tf(Wxc+b)$ 和 $s=U^Tf(Wx+b)$；通常通过负采样算法得到负例。</p>
+<p>另外，这个目标函数的好处是，随着训练的进行，可以忽略越来越多的实例，而只专注于那些难分类的实例。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a href="https://nlpforhackers.io/named-entity-extraction/" target="_blank" rel="noopener">nltk-ner</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/22/高级词向量表示/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1252,7 +1443,7 @@ if __name__ == &#39;__main__&#39;:
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
