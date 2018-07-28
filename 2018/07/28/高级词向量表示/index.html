@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="NLP," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,24 +79,14 @@
 
 
 
-<meta name="description" content="基于固定窗口的NN语音模型和RNN语言模型Bengio等人利用神经网络来表示语言模型，在语言模型的训练过程中可以得到单词的分布式表示，具体的神经概率语言模型图如下： 该网络的主要思想是用前$n−1$个词的向量来估计当前词的概率，具体公式为： \hat{y} =softmax(W_2*tanh(W_1+b_1)+W_3+b_3)可以看出传统语言模型在估计概率的时候需要固定$n$的大小，否则无法统计概">
-<meta name="keywords" content="NLP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RNN系列">
-<meta property="og:url" content="http://yoursite.com/2018/07/14/RNN系列/index.html">
+<meta property="og:title" content="高级词向量表示">
+<meta property="og:url" content="http://yoursite.com/2018/07/28/高级词向量表示/index.html">
 <meta property="og:site_name" content="小尚是个好青年">
-<meta property="og:description" content="基于固定窗口的NN语音模型和RNN语言模型Bengio等人利用神经网络来表示语言模型，在语言模型的训练过程中可以得到单词的分布式表示，具体的神经概率语言模型图如下： 该网络的主要思想是用前$n−1$个词的向量来估计当前词的概率，具体公式为： \hat{y} =softmax(W_2*tanh(W_1+b_1)+W_3+b_3)可以看出传统语言模型在估计概率的时候需要固定$n$的大小，否则无法统计概">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2018/07/14/RNN系列/images/markdown-img-paste-20180714145552618.png">
-<meta property="og:image" content="http://yoursite.com/2018/07/14/RNN系列/images/markdown-img-paste-20180714145356908.png">
-<meta property="og:image" content="http://yoursite.com/2018/07/14/RNN系列/images/markdown-img-paste-20180714152550317.png">
-<meta property="og:image" content="http://yoursite.com/2018/07/14/RNN系列/images/markdown-img-paste-2018071416061721.png">
-<meta property="og:image" content="http://yoursite.com/2018/07/14/RNN系列/images/markdown-img-paste-20180714161114943.png">
-<meta property="og:updated_time" content="2018-07-15T01:46:56.259Z">
+<meta property="og:updated_time" content="2018-07-28T04:17:53.867Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RNN系列">
-<meta name="twitter:description" content="基于固定窗口的NN语音模型和RNN语言模型Bengio等人利用神经网络来表示语言模型，在语言模型的训练过程中可以得到单词的分布式表示，具体的神经概率语言模型图如下： 该网络的主要思想是用前$n−1$个词的向量来估计当前词的概率，具体公式为： \hat{y} =softmax(W_2*tanh(W_1+b_1)+W_3+b_3)可以看出传统语言模型在估计概率的时候需要固定$n$的大小，否则无法统计概">
-<meta name="twitter:image" content="http://yoursite.com/2018/07/14/RNN系列/images/markdown-img-paste-20180714145552618.png">
+<meta name="twitter:title" content="高级词向量表示">
 
 
 
@@ -126,13 +116,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/14/RNN系列/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/28/高级词向量表示/"/>
 
 
 
 
 
-  <title>RNN系列 | 小尚是个好青年</title>
+  <title>高级词向量表示 | 小尚是个好青年</title>
   
 
 
@@ -259,7 +249,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/14/RNN系列/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/高级词向量表示/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shang">
@@ -276,7 +266,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">RNN系列</h1>
+          <h1 class="post-title" itemprop="name headline">高级词向量表示</h1>
         
 
         <div class="post-meta">
@@ -288,8 +278,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-14T00:00:00+08:00">
-                2018-07-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-28T12:17:53+08:00">
+                2018-07-28
               </time>
             
 
@@ -298,28 +288,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/公开课/" itemprop="url" rel="index">
-                    <span itemprop="name">公开课</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -348,27 +316,7 @@
       
 
       
-        <h2 id="基于固定窗口的NN语音模型和RNN语言模型"><a href="#基于固定窗口的NN语音模型和RNN语言模型" class="headerlink" title="基于固定窗口的NN语音模型和RNN语言模型"></a>基于固定窗口的NN语音模型和RNN语言模型</h2><p>Bengio等人利用神经网络来表示语言模型，在语言模型的训练过程中可以得到单词的分布式表示，具体的神经概率语言模型图如下：</p>
-<p><img src="images/markdown-img-paste-20180714145552618.png" alt=""><br>该网络的主要思想是用前$n−1$个词的向量来估计当前词的概率，具体公式为：</p>
-<script type="math/tex; mode=display">\hat{y} =softmax(W_2*tanh(W_1+b_1)+W_3+b_3)</script><p>可以看出传统语言模型在估计概率的时候需要固定$n$的大小，否则无法统计概率$P(w_i|w_{i−(n−1)},…,w_{i−1})$。 而 RNN 的最大优势在于可以统计 $P(w_i|w_1,…,w_{i−1})$ 的概率。<br><img src="images/markdown-img-paste-20180714145356908.png" alt=""></p>
-<p>RNN语言模型中非常关键的一点是每个时刻采用的 $W$ 矩阵都是一个，所以参数规模不会随着依赖上下文的长度增加而指数增长。</p>
-<h2 id="RNN-中的BP"><a href="#RNN-中的BP" class="headerlink" title="RNN 中的BP"></a>RNN 中的BP</h2><p><font color="teal">多变量链式法则</font><br><br>如果对于函数 $f(x, y)$, 每个变量都是 $t$ 的函数，即 $x(t)$, $y(t)$, 那么</p>
-<script type="math/tex; mode=display">\frac{d}{dt}f(x(t), y(t))=\frac{\partial f}{\partial x}\frac{\partial x}{\partial t} + \frac{\partial f}{\partial y}\frac{\partial y}{\partial t}</script><p>对于 RNN 来说，$W_h$ 出现在每一个时刻，所以在计算时应该对每一次的梯度求和。</p>
-<p><img src="images/markdown-img-paste-20180714152550317.png" alt=""></p>
-<p>如果只考虑最后两个时刻$t$和$t-1$，那么：</p>
-<script type="math/tex; mode=display">\frac{\partial J^{(t)}}{\partial W_h}=\sum^t _{i=t-1}|_{(i)}=\frac{\partial J^{(t)}}{\partial\theta^{(t)}}\frac{\partial \theta^{(t)}}{\partial h^{(t)}}(\frac{\partial h^{(t)}}{\partial z^{(t)}}\frac{\partial z^{(t)}}{\partial W_h}+\frac{\partial h^{(t)}}{\partial h^{(t-1)}}\frac{\partial h^{(t-1)}}{\partial z^{(t-1)}}\frac{\partial z^{(t-1)}}{\partial W_h})</script><p>记 $\gamma^{(t)}=\frac{\partial J^{(t)}}{\partial h^{(t)}}$，考虑到梯度可以按时间展开，那么有 $\gamma^{(t-1)}=\frac{\partial J^{(t)}}{\partial h^{(t-1)}}$，所以上述式子可以简写为</p>
-<script type="math/tex; mode=display">\frac{\partial J^{(t)}}{\partial W_h}=\sum^t _{i=t-1}|_{(i)}=\gamma^{(t)} \frac{\partial h^{(t)}}{\partial z^{(t)}}\frac{\partial z^{(t)}}{\partial W_h} + \gamma^{(t-1)} \frac{\partial h^{(t-1)}}{\partial z^{(t-1)}}\frac{\partial z^{(t-1)}}{\partial W_h}</script><p>而由 $\frac{\partial h^{(t)}}{\partial h^{(t-1)}}$ 可以看出，这一项会带来梯度弥散或者梯度爆炸<br>上面的公式是为了详细说明下面的图：<br><img src="images/markdown-img-paste-2018071416061721.png" alt=""></p>
-<h2 id="梯度问题解决办法"><a href="#梯度问题解决办法" class="headerlink" title="梯度问题解决办法"></a>梯度问题解决办法</h2><ol>
-<li>梯度爆炸：当梯度超过一个阈值的时候，将梯度裁剪到一个合适的值</li>
-<li>梯度弥散：使用 GRU 或者 LSTM</li>
-</ol>
-<blockquote>
-<p><font color="red">Q: </font>使用 $l2$ 正则会有助于改善梯度弥散吗？<font color="red">A: </font> 不会，$l2$ 会让权重变为0，使情况更糟。<br></p>
-<p><font color="red">Q: </font>对于一个拥有2个隐层的NN来说，增加隐层个数会有助于改善梯度弥散吗？<br><font color="red">A: </font> 不会，梯度弥散就是因为层数太多引起的。<br></p>
-</blockquote>
-<h3 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h3><p><img src="images/markdown-img-paste-20180714161114943.png" alt=""></p>
-<p>通过更改 RNN 单元结构，使得 从 $c_t$ 到 $c_{t-1}$ 的反向传播与 $W$ 无关</p>
-
+        
       
     </div>
     
@@ -383,12 +331,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/NLP/" rel="tag"># NLP</a>
-          
-        </div>
-      
 
       
       
@@ -398,8 +340,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/16/word2vec-实现篇/" rel="next" title="word2vec-实现篇">
-                <i class="fa fa-chevron-left"></i> word2vec-实现篇
+              <a href="/2018/07/15/反向传播与梯度计算/" rel="next" title="反向传播与梯度计算">
+                <i class="fa fa-chevron-left"></i> 反向传播与梯度计算
               </a>
             
           </div>
@@ -407,10 +349,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/15/反向传播与梯度计算/" rel="prev" title="反向传播与梯度计算">
-                反向传播与梯度计算 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -462,17 +400,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -536,22 +465,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于固定窗口的NN语音模型和RNN语言模型"><span class="nav-number">1.</span> <span class="nav-text">基于固定窗口的NN语音模型和RNN语言模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RNN-中的BP"><span class="nav-number">2.</span> <span class="nav-text">RNN 中的BP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度问题解决办法"><span class="nav-number">3.</span> <span class="nav-text">梯度问题解决办法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LSTM"><span class="nav-number">3.1.</span> <span class="nav-text">LSTM</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
