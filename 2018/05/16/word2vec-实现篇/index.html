@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="NLP," />
 
 
 
@@ -79,13 +79,29 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="小尚是个好青年">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="有了 原理篇 做基础，这次来进行一个简单的实战，从最简单的上下文只有一个词的情形入手, 利用朴素softmax和用梯度下降，多轮迭代进行模型训练。 模型结构首先先看简化版入手: 输入输出都只有一个词,如下图示:  首先说明符号:  $x$: 输入是一个词，这个词用 one-hot 编码方式表示成的向量，维度等于词表长度 $V$, 只有输入词编号位置是 1，其他都是 0; $V$: 词汇表长度; $">
+<meta name="keywords" content="NLP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="word2vec-实现篇">
+<meta property="og:url" content="http://yoursite.com/2018/05/16/word2vec-实现篇/index.html">
 <meta property="og:site_name" content="小尚是个好青年">
+<meta property="og:description" content="有了 原理篇 做基础，这次来进行一个简单的实战，从最简单的上下文只有一个词的情形入手, 利用朴素softmax和用梯度下降，多轮迭代进行模型训练。 模型结构首先先看简化版入手: 输入输出都只有一个词,如下图示:  首先说明符号:  $x$: 输入是一个词，这个词用 one-hot 编码方式表示成的向量，维度等于词表长度 $V$, 只有输入词编号位置是 1，其他都是 0; $V$: 词汇表长度; $">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/images/markdown-img-paste-20180724084041175.png">
+<meta property="og:image" content="http://yoursite.com/images/markdown-img-paste-20180724092109350.png">
+<meta property="og:image" content="http://yoursite.com/images/markdown-img-paste-20180724093138462.png">
+<meta property="og:image" content="http://yoursite.com/images/markdown-img-paste-20180724093207215.png">
+<meta property="og:image" content="http://yoursite.com/images/markdown-img-paste-20180724093344561.png">
+<meta property="og:image" content="http://yoursite.com/images/markdown-img-paste-20180724093513831.png">
+<meta property="og:image" content="http://yoursite.com/images/markdown-img-paste-2018072409402712.png">
+<meta property="og:image" content="http://yoursite.com/images/markdown-img-paste-20180724200432880.png">
+<meta property="og:image" content="http://yoursite.com/images/markdown-img-paste-20180724201437755.png">
+<meta property="og:image" content="http://yoursite.com/images/markdown-img-paste-20180728111446566.png">
+<meta property="og:updated_time" content="2018-07-28T04:08:45.112Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="小尚是个好青年">
+<meta name="twitter:title" content="word2vec-实现篇">
+<meta name="twitter:description" content="有了 原理篇 做基础，这次来进行一个简单的实战，从最简单的上下文只有一个词的情形入手, 利用朴素softmax和用梯度下降，多轮迭代进行模型训练。 模型结构首先先看简化版入手: 输入输出都只有一个词,如下图示:  首先说明符号:  $x$: 输入是一个词，这个词用 one-hot 编码方式表示成的向量，维度等于词表长度 $V$, 只有输入词编号位置是 1，其他都是 0; $V$: 词汇表长度; $">
+<meta name="twitter:image" content="http://yoursite.com/images/markdown-img-paste-20180724084041175.png">
 
 
 
@@ -115,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/16/word2vec-实现篇/"/>
 
 
 
 
 
-  <title>小尚是个好青年</title>
+  <title>word2vec-实现篇 | 小尚是个好青年</title>
   
 
 
@@ -140,8 +156,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -234,331 +249,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/15/反向传播与梯度计算/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/WX20180525-190534@2x.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小尚是个好青年">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/15/反向传播与梯度计算/" itemprop="url">反向传播与梯度计算</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-15T00:00:00+08:00">
-                2018-07-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/公开课/" itemprop="url" rel="index">
-                    <span itemprop="name">公开课</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="矩阵计算基础"><a href="#矩阵计算基础" class="headerlink" title="矩阵计算基础"></a>矩阵计算基础</h2><ol>
-<li>标量对向量的导数：标量对向量的每一维求导，结果是一个向量</li>
-<li>向量对向量的导数：向量的每一维对向量的每一维求导，结果是一个矩阵</li>
-<li>标量对矩阵的导数：标量对矩阵的每一个元素求导，结果是一个矩阵<br><img src="images/markdown-img-paste-20180714141016139.png" alt=""><br>【结论】求导结果总是和求导对象大小相同</li>
-</ol>
-<h2 id="常见的导数运算："><a href="#常见的导数运算：" class="headerlink" title="常见的导数运算："></a>常见的导数运算：</h2><p><img src="images/markdown-img-paste-20180714141048437.png" alt=""></p>
-<h2 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h2><p>定义 $h$ 是 $z$ 的函数 $h=f(z)$, $h$ 和$z$ 都是n维向量。求</p>
-<script type="math/tex; mode=display">\frac{\partial h}{\partial z}</script><p><img src="images/markdown-img-paste-20180714141754511.png" alt=""><br>注意 $\circ$ 是元素积，也叫哈达马相乘，顺便补充一下矩阵各种乘积<br><img src="images/markdown-img-paste-20180714142606302.png" alt=""></p>
-<h2 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h2><p>以常见的三层NN为例来计算BP过程。</p>
-<ol>
-<li>定义前向传播中每一步的函数：</li>
-</ol>
-<script type="math/tex; mode=display">h_1 = \sigma(xW_1+b_1)</script><script type="math/tex; mode=display">\hat{y} = softmax(h_1W_2+b_2)</script><script type="math/tex; mode=display">J=CE(\hat{y}, y)</script><ol>
-<li><p>从最后一层开始，每一层各自求导，再利用链式法则计算：</p>
-<ul>
-<li>先对 $x$ 求导<br><img src="images/markdown-img-paste-2018071414362761.png" alt=""></li>
-<li>再对 $W_2$, $b_2$, $W_1$, $b_1$ 求导<br><img src="images/markdown-img-paste-20180714143755133.png" alt=""></li>
-</ul>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/14/RNN系列/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/WX20180525-190534@2x.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小尚是个好青年">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/14/RNN系列/" itemprop="url">RNN系列</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-14T00:00:00+08:00">
-                2018-07-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/公开课/" itemprop="url" rel="index">
-                    <span itemprop="name">公开课</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="基于固定窗口的NN语音模型和RNN语言模型"><a href="#基于固定窗口的NN语音模型和RNN语言模型" class="headerlink" title="基于固定窗口的NN语音模型和RNN语言模型"></a>基于固定窗口的NN语音模型和RNN语言模型</h2><p>Bengio等人利用神经网络来表示语言模型，在语言模型的训练过程中可以得到单词的分布式表示，具体的神经概率语言模型图如下：</p>
-<p><img src="images/markdown-img-paste-20180714145552618.png" alt=""><br>该网络的主要思想是用前$n−1$个词的向量来估计当前词的概率，具体公式为：</p>
-<script type="math/tex; mode=display">\hat{y} =softmax(W_2*tanh(W_1+b_1)+W_3+b_3)</script><p>可以看出传统语言模型在估计概率的时候需要固定$n$的大小，否则无法统计概率$P(w_i|w_{i−(n−1)},…,w_{i−1})$。 而 RNN 的最大优势在于可以统计 $P(w_i|w_1,…,w_{i−1})$ 的概率。<br><img src="images/markdown-img-paste-20180714145356908.png" alt=""></p>
-<p>RNN语言模型中非常关键的一点是每个时刻采用的 $W$ 矩阵都是一个，所以参数规模不会随着依赖上下文的长度增加而指数增长。</p>
-<h2 id="RNN-中的BP"><a href="#RNN-中的BP" class="headerlink" title="RNN 中的BP"></a>RNN 中的BP</h2><p><font color="teal">多变量链式法则</font><br><br>如果对于函数 $f(x, y)$, 每个变量都是 $t$ 的函数，即 $x(t)$, $y(t)$, 那么</p>
-<script type="math/tex; mode=display">\frac{d}{dt}f(x(t), y(t))=\frac{\partial f}{\partial x}\frac{\partial x}{\partial t} + \frac{\partial f}{\partial y}\frac{\partial y}{\partial t}</script><p>对于 RNN 来说，$W_h$ 出现在每一个时刻，所以在计算时应该对每一次的梯度求和。</p>
-<p><img src="images/markdown-img-paste-20180714152550317.png" alt=""></p>
-<p>如果只考虑最后两个时刻$t$和$t-1$，那么：</p>
-<script type="math/tex; mode=display">\frac{\partial J^{(t)}}{\partial W_h}=\sum^t _{i=t-1}|_{(i)}=\frac{\partial J^{(t)}}{\partial\theta^{(t)}}\frac{\partial \theta^{(t)}}{\partial h^{(t)}}(\frac{\partial h^{(t)}}{\partial z^{(t)}}\frac{\partial z^{(t)}}{\partial W_h}+\frac{\partial h^{(t)}}{\partial h^{(t-1)}}\frac{\partial h^{(t-1)}}{\partial z^{(t-1)}}\frac{\partial z^{(t-1)}}{\partial W_h})</script><p>记 $\gamma^{(t)}=\frac{\partial J^{(t)}}{\partial h^{(t)}}$，考虑到梯度可以按时间展开，那么有 $\gamma^{(t-1)}=\frac{\partial J^{(t)}}{\partial h^{(t-1)}}$，所以上述式子可以简写为</p>
-<script type="math/tex; mode=display">\frac{\partial J^{(t)}}{\partial W_h}=\sum^t _{i=t-1}|_{(i)}=\gamma^{(t)} \frac{\partial h^{(t)}}{\partial z^{(t)}}\frac{\partial z^{(t)}}{\partial W_h} + \gamma^{(t-1)} \frac{\partial h^{(t-1)}}{\partial z^{(t-1)}}\frac{\partial z^{(t-1)}}{\partial W_h}</script><p>而由 $\frac{\partial h^{(t)}}{\partial h^{(t-1)}}$ 可以看出，这一项会带来梯度弥散或者梯度爆炸<br>上面的公式是为了详细说明下面的图：<br><img src="images/markdown-img-paste-2018071416061721.png" alt=""></p>
-<h2 id="梯度问题解决办法"><a href="#梯度问题解决办法" class="headerlink" title="梯度问题解决办法"></a>梯度问题解决办法</h2><ol>
-<li>梯度爆炸：当梯度超过一个阈值的时候，将梯度裁剪到一个合适的值</li>
-<li>梯度弥散：使用 GRU 或者 LSTM</li>
-</ol>
-<blockquote>
-<p><font color="red">Q: </font>使用 $l2$ 正则会有助于改善梯度弥散吗？<font color="red">A: </font> 不会，$l2$ 会让权重变为0，使情况更糟。<br></p>
-<p><font color="red">Q: </font>对于一个拥有2个隐层的NN来说，增加隐层个数会有助于改善梯度弥散吗？<br><font color="red">A: </font> 不会，梯度弥散就是因为层数太多引起的。<br></p>
-</blockquote>
-<h3 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h3><p><img src="images/markdown-img-paste-20180714161114943.png" alt=""></p>
-<p>通过更改 RNN 单元结构，使得 从 $c_t$ 到 $c_{t-1}$ 的反向传播与 $W$ 无关</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
 
   
 
@@ -588,9 +281,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/16/word2vec-实现篇/" itemprop="url">word2vec-实现篇</a></h1>
+          <h1 class="post-title" itemprop="name headline">word2vec-实现篇</h1>
         
 
         <div class="post-meta">
@@ -662,9 +353,7 @@
       
 
       
-        
-          
-            <p>有了 <a href="https://sharonno.github.io/2018/05/14/word2vec-%E5%8E%9F%E7%90%86%E7%AF%87/" target="_blank" rel="noopener">原理篇</a> 做基础，这次来进行一个简单的实战，从最简单的上下文只有一个词的情形入手, 利用朴素softmax和用梯度下降，多轮迭代进行模型训练。</p>
+        <p>有了 <a href="https://sharonno.github.io/2018/05/14/word2vec-%E5%8E%9F%E7%90%86%E7%AF%87/" target="_blank" rel="noopener">原理篇</a> 做基础，这次来进行一个简单的实战，从最简单的上下文只有一个词的情形入手, 利用朴素softmax和用梯度下降，多轮迭代进行模型训练。</p>
 <h3 id="模型结构"><a href="#模型结构" class="headerlink" title="模型结构"></a>模型结构</h3><p>首先先看简化版入手: 输入输出都只有一个词,如下图示:</p>
 <p><img src="/images/markdown-img-paste-20180724084041175.png" alt=""></p>
 <p>首先说明符号:</p>
@@ -791,8 +480,6 @@ if __name__ == &#39;__main__&#39;:
 </code></pre>
 <p><img src="/images/markdown-img-paste-20180728111446566.png" alt=""></p>
 
-          
-        
       
     </div>
     
@@ -807,197 +494,40 @@ if __name__ == &#39;__main__&#39;:
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/14/word2vec-原理篇/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/WX20180525-190534@2x.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小尚是个好青年">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/14/word2vec-原理篇/" itemprop="url">word2vec-原理篇</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-14T00:00:00+08:00">
-                2018-05-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/公开课/" itemprop="url" rel="index">
-                    <span itemprop="name">公开课</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="词语的表示"><a href="#词语的表示" class="headerlink" title="词语的表示"></a>词语的表示</h3><ol>
-<li>discrete representation (similar to symbolic )</li>
-<li>symbolic representations(localist representation, one-hot representation)</li>
-<li>distributed representations</li>
-<li>Distributional similarity based representations</li>
-</ol>
-<h3 id="两种产生词向量的方法"><a href="#两种产生词向量的方法" class="headerlink" title="两种产生词向量的方法"></a>两种产生词向量的方法</h3><ol>
-<li>Skip-grams(SG): 预测上下文</li>
-<li>Continuous Bag of Words（CBOW）：预测中心词</li>
-</ol>
-<h3 id="三种模型训练方法"><a href="#三种模型训练方法" class="headerlink" title="三种模型训练方法"></a>三种模型训练方法</h3><h4 id="3-1-朴素-softmax-法"><a href="#3-1-朴素-softmax-法" class="headerlink" title="3.1 朴素 softmax 法"></a>3.1 朴素 softmax 法</h4><p>计算一个词向量预测另一个词向量的概率,一种朴素的思想就是计算二者的相似度.<br>假设 $v_{c}$ 代表中心词, $u_{o}$ 代表其窗口中的一个词,则可以根据softmax的思想定义:</p>
-<ul>
-<li>概率值定义：</li>
-</ul>
-<p><img src="/images/markdown-img-paste-20180517083337402.png" alt=""></p>
-<p>注意:这里W指的是语料字中所有的词量.</p>
-<ul>
-<li>训练方法：SGD进行参数更新，但是并不像 BGD 那样对整个目标函数进行梯度下降，而是过滤一个窗口就进行一次更新</li>
-<li>缺点:计算量大(每个窗口都进行更新);模型过于简单(仅仅利用两个词的相似度代表二者的预测概率);训练结束后，每个词对应于两个向量</li>
-</ul>
-<h4 id="3-2-Hierarchical-softmax-法-（Huffman树）"><a href="#3-2-Hierarchical-softmax-法-（Huffman树）" class="headerlink" title="3.2 Hierarchical softmax 法 （Huffman树）"></a>3.2 Hierarchical softmax 法 （Huffman树）</h4><p>huffman树最后导致的结果就是出现频率越高的词所在的子节点越靠近根部,词频出现的越低的词越靠近底部.</p>
-<ul>
-<li>概率值定义：</li>
-</ul>
-<p>假设这颗树有n个非叶子节点(标黄的部分) $R_i (i=1,…,n)$ ,<br>每个点处都有一个参 数$z_{i}$,其维度和词向量相同.每个节点都是一个类似LR的分类概率<br><img src="/images/markdown-img-paste-20180517084918709.png" alt=""><br>当中心词确定的时候，$v$ 就确定了，只有 $z$ 是要更新的参数，但最终的目标是求得最优的 $v$<br><img src="/images/markdown-img-paste-20180517083859632.png" alt=""></p>
-<p>所以对每个窗口对应的</p>
-<p><img src="/images/markdown-img-paste-20180517092000645.png" alt=""></p>
-<ul>
-<li>训练方法：SGD，</li>
-<li>优点：模型复杂度低；预测概率更有解释性；训练完成后每个向量都对应到一个唯一的向量上</li>
-</ul>
-<p><font size="4">Huffman Tree</font><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Huffman Encoding</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Tree-Node Type</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,freq)</span>:</span></span><br><span class="line">        self.left = <span class="keyword">None</span></span><br><span class="line">        self.right = <span class="keyword">None</span></span><br><span class="line">        self.father = <span class="keyword">None</span></span><br><span class="line">        self.freq = freq</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isLeft</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.father.left == self</span><br><span class="line"></span><br><span class="line"><span class="comment">#create nodes创建叶子节点</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">createNodes</span><span class="params">(freqs)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> [Node(freq) <span class="keyword">for</span> freq <span class="keyword">in</span> freqs]</span><br><span class="line"></span><br><span class="line"><span class="comment">#create Huffman-Tree创建Huffman树</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">createHuffmanTree</span><span class="params">(nodes)</span>:</span></span><br><span class="line">    queue = nodes[:]</span><br><span class="line">    <span class="keyword">while</span> len(queue) &gt; <span class="number">1</span>:</span><br><span class="line">        queue.sort(key=<span class="keyword">lambda</span> item:item.freq)</span><br><span class="line">        node_left = queue.pop(<span class="number">0</span>)</span><br><span class="line">        node_right = queue.pop(<span class="number">0</span>)</span><br><span class="line">        node_father = Node(node_left.freq + node_right.freq)</span><br><span class="line">        node_father.left = node_left</span><br><span class="line">        node_father.right = node_right</span><br><span class="line">        node_left.father = node_father</span><br><span class="line">        node_right.father = node_father</span><br><span class="line">        queue.append(node_father)</span><br><span class="line">    queue[<span class="number">0</span>].father = <span class="keyword">None</span></span><br><span class="line">    <span class="keyword">return</span> queue[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#Huffman编码</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">huffmanEncoding</span><span class="params">(nodes,root)</span>:</span></span><br><span class="line">    codes = [<span class="string">''</span>] * len(nodes)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nodes)):</span><br><span class="line">        node_tmp = nodes[i]</span><br><span class="line">        <span class="keyword">while</span> node_tmp != root:</span><br><span class="line">            <span class="keyword">if</span> node_tmp.isLeft():</span><br><span class="line">                codes[i] = <span class="string">'0'</span> + codes[i]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                codes[i] = <span class="string">'1'</span> + codes[i]</span><br><span class="line">            node_tmp = node_tmp.father</span><br><span class="line">    <span class="keyword">return</span> codes</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line"></span><br><span class="line">    chars_freqs = [(<span class="string">'我'</span>, <span class="number">15</span>), (<span class="string">'喜欢'</span>, <span class="number">8</span>), (<span class="string">'看'</span>, <span class="number">6</span>), (<span class="string">'巴西'</span>, <span class="number">5</span>), (<span class="string">'足球'</span>, <span class="number">3</span>), (<span class="string">'世界杯'</span>, <span class="number">1</span>)]</span><br><span class="line">    nodes = createNodes([item[<span class="number">1</span>] <span class="keyword">for</span> item <span class="keyword">in</span> chars_freqs])</span><br><span class="line">    root = createHuffmanTree(nodes)</span><br><span class="line">    codes = huffmanEncoding(nodes,root)</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> zip(chars_freqs,codes):</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'Character:%s freq:%-2d   encoding: %s'</span> % (item[<span class="number">0</span>][<span class="number">0</span>],item[<span class="number">0</span>][<span class="number">1</span>],item[<span class="number">1</span>])</span><br></pre></td></tr></table></figure></p>
-<p><img src="/images/hierarchicalSoftmax_1.png" alt=""></p>
-<h4 id="3-3-Negative-sampling-法"><a href="#3-3-Negative-sampling-法" class="headerlink" title="3.3 Negative sampling 法"></a>3.3 Negative sampling 法</h4><p>与 Hierarchical 法相比, 负采样法不再使用复杂的 huffman 树,而是采用随机负采样,这样的计算效率会得到进一步提升.</p>
-<ul>
-<li><p>概率值定义：<br><img src="/images/markdown-img-paste-20180517085555212.png" alt=""><br>其中，<br><img src="/images/markdown-img-paste-20180517085621214.png" alt=""><br>这里参数可以理解为每个词都对应了一个theta。当其作为正，负训练样本时便会得到更新。</p>
-</li>
-<li><p>目标函数：此时的目标函数形式和 Hierarchical 的完全类似,唯一的区别就是 Hier 的概率表达式需要通过建立 huffman 树才能得到,而 NEG 法需要预先进行负采样.</p>
-</li>
-<li>负采样具体是如何进行的?就是最简单的线性加权采样的思想.比如说”我”出现3次,”你”出现1次,那么采样到”我”的概率为3/4.一般负采样集的元素个数为3个左右.</li>
-</ul>
-<h3 id="参数更新"><a href="#参数更新" class="headerlink" title="参数更新"></a>参数更新</h3><p>GD Batch 过所有窗口进行更新 （BGD 指向最合适的，仅适用于凸函数）<br>SGD 过一个窗口进行更新 （折线走向，更新一次不需要那么久，不限于凸函数）</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/14/word2vec-原理篇/" rel="next" title="word2vec-原理篇">
+                <i class="fa fa-chevron-left"></i> word2vec-原理篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/14/RNN系列/" rel="prev" title="RNN系列">
+                RNN系列 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
       
     </footer>
   </div>
@@ -1007,10 +537,11 @@ if __name__ == &#39;__main__&#39;:
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -1018,6 +549,10 @@ if __name__ == &#39;__main__&#39;:
 
 
           
+
+  
+
+
 
         </div>
         
@@ -1038,8 +573,17 @@ if __name__ == &#39;__main__&#39;:
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1103,6 +647,22 @@ if __name__ == &#39;__main__&#39;:
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型结构"><span class="nav-number">1.</span> <span class="nav-text">模型结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练及更新"><span class="nav-number">2.</span> <span class="nav-text">训练及更新</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#更新输出矩阵"><span class="nav-number">2.1.</span> <span class="nav-text">更新输出矩阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新输入矩阵"><span class="nav-number">2.2.</span> <span class="nav-text">更新输入矩阵</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练过程"><span class="nav-number">3.</span> <span class="nav-text">训练过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python-实现"><span class="nav-number">4.</span> <span class="nav-text">python 实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单测试"><span class="nav-number">5.</span> <span class="nav-text">简单测试</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1236,6 +796,10 @@ if __name__ == &#39;__main__&#39;:
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
